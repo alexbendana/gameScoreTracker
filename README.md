@@ -2,8 +2,6 @@
 
 This is an app for friends/colleagues to record and track their scores against each other through a ranking system that allows them to sort through various criteria.
 
-Luiz, Vas, Julian, Alex and Ray were here.
-
 ### Steps to get started on Backend:
 
 * Download java 21 : https://www.oracle.com/java/technologies/downloads/#jdk21-windows
