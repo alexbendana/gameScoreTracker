@@ -1,0 +1,176 @@
+<div class="app-shell">
+  <!-- Top white header -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logo">GS</div>
+      <div class="brand-text">
+        <div class="brand-title">{{ groupName || 'Group Name' }}</div>
+        <div class="brand-subtitle">Game Score Management</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button class="top-btn ghost" (click)="onBackToDashboard()">Back to Dashboard</button>
+      <button class="top-btn danger" (click)="onSignOut()">Sign Out</button>
+    </div>
+  </header>
+
+  <main class="profile-page">
+    <section class="profile-card">
+      <div class="profile-header">
+        <div class="profile-header-inner">
+          <div class="avatar-block">
+            <div class="avatar-wrapper">
+              <div class="avatar-outline">
+                <div class="avatar-icon" *ngIf="!previewUrl"><mat-icon>person</mat-icon></div>
+                <img
+                  *ngIf="previewUrl"
+                  [src]="previewUrl"
+                  alt="Avatar"
+                  style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px"
+                />
+              </div>
+            </div>
+
+            <div class="user-text">
+              <div class="user-name-row">
+                <div class="user-name">{{ nickname }}</div>
+                <button
+                  class="name-edit"
+                  type="button"
+                  *ngIf="isOwnProfile"
+                  (click)="onEditUsername()"
+                  aria-label="Edit display name"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+              <div class="user-handle">{{ handle }}</div>
+
+              <div class="user-tags-row">
+                <div class="user-tags">
+                  <span class="tag tag-soft">{{ role }}</span>
+                  <span class="tag tag-green">{{ status }}</span>
+                  <span class="tag tag-ghost">
+                    <span class="tag-icon"><mat-icon>alarm</mat-icon></span>
+                    {{ memberSince }}
+                  </span>
+                </div>
+
+                <button
+                  class="header-btn"
+                  type="button"
+                  *ngIf="isOwnProfile"
+                  (click)="onChangePassword()"
+                >
+                  <span class="header-btn-icon"><mat-icon>lock</mat-icon></span>
+                  <span>Change Password</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-divider"></div>
+
+      <div class="profile-body">
+        <section class="stats-section">
+          <div class="section-header">
+            <div class="section-title-left">
+              <span class="section-icon"><mat-icon>bar_chart</mat-icon></span>
+              <h2 class="section-title">Statistics</h2>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card stat-blue">
+              <div class="stat-label">
+                <span class="stat-icon"><mat-icon>sports_esports</mat-icon></span>
+                <span>Games Played</span>
+              </div>
+              <div class="stat-value">{{ gamesPlayed }}</div>
+            </div>
+
+            <div class="stat-card stat-green">
+              <div class="stat-label">
+                <span class="stat-icon"><mat-icon>star</mat-icon></span>
+                <span>Total Wins</span>
+              </div>
+              <div class="stat-value">{{ totalWins }}</div>
+            </div>
+
+            <div class="stat-card stat-gold">
+              <div class="stat-label">
+                <span class="stat-icon"><mat-icon>show_chart</mat-icon></span>
+                <span>Win Rate</span>
+              </div>
+              <div class="stat-value">{{ winRate }}%</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="activity-section">
+          <div class="section-header">
+            <div class="section-title-left">
+              <h2 class="section-title">Recent Activity</h2>
+            </div>
+          </div>
+
+          <div class="modal-backdrop" *ngIf="showEditUsername" (click)="cancelEditUsername()">
+            <div class="modal" (click)="$event.stopPropagation()">
+              <h3>Edit Display Name</h3>
+              <input type="text" [(ngModel)]="tempUsername" placeholder="Display name" />
+              <div class="actions">
+                <button class="btn cancel" (click)="cancelEditUsername()">Cancel</button>
+                <button class="btn save" (click)="saveUsername()">Save</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="activity-list">
+          <div class="activity-item" *ngFor="let a of activities">
+            <div class="activity-left">
+              <span
+                class="badge"
+                [class.win]="a.result === 'WIN'"
+                [class.loss]="a.result !== 'WIN'"
+                >{{ a.result }}</span
+              >
+              <div class="activity-text">
+                <div class="opponents strong">
+                  {{ a.result === 'WIN' ? 'won against' : 'lost against' }} {{ a['opponents'] }}
+                </div>
+                <div class="myscore">Score: {{ a.score }}</div>
+              </div>
+            </div>
+            <div class="activity-right">
+              <span class="date">{{ a.when }}</span>
+              <button
+                class="activity-delete"
+                *ngIf="isAdmin"
+                (click)="onClickDeleteMatch(a)"
+                title="Remove match"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-backdrop" *ngIf="showDeleteModal" (click)="cancelDeleteMatch()">
+          <div class="modal" (click)="$event.stopPropagation()">
+            <h3>Are you sure you want to remove this match?</h3>
+            <p>{{ deleteContext?.text }}</p>
+            <p class="strong">This will update all players' scores accordingly.</p>
+            <div class="actions">
+              <button class="btn cancel" (click)="cancelDeleteMatch()">Cancel</button>
+              <button class="btn danger" (click)="confirmDeleteMatch()">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
