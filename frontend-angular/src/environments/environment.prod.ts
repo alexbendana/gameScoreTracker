@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://game-score-tracker-production.up.railway.app/api'
+  apiBaseUrl: 'https://gamescoretracker-57mi.onrender.com/api'
 };
