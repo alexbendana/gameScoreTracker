@@ -2,8 +2,6 @@
 
 A web app for friends and colleagues to record game results against each other and track standings through a ranking system. Users can create or join groups, log matches with scores, view their stats and match history, and sort rankings by different criteria.
 
-**Live app:** https://thegamescoretracker.netlify.app
-**Demo video:** [YouTube (unlisted)](PASTE_YOUR_YOUTUBE_LINK_HERE)
 
 > ⏳ The backend runs on Render's free tier and sleeps when idle. The **first request can take up to ~50 seconds** while it wakes up. After that, it responds normally.
 
@@ -191,17 +189,3 @@ Tables are created automatically by Hibernate on first startup.
 4. To stay within Netlify's free limits, builds are stopped after the final deploy (**Project configuration → Build & deploy → Build status → Stopped builds**).
 
 ---
-
-## Project History
-
-This project began as a group project for CEN 4010 (Software Engineering), with contributions from: **[TEAMMATE NAMES]**. I wrote the majority of the application code in the original project.
-
-For this Engineering Design 2 assignment, I:
-
-- **[EDIT THIS LIST TO MATCH WHAT YOU DID]**
-- Migrated the production database to **Supabase (PostgreSQL)**
-- Containerized the backend with a **Dockerfile** and deployed it to **Render**
-- Deployed the Angular frontend to **Netlify** with SPA routing configuration
-- Configured environment-based secrets, CORS, and JVM memory settings for free-tier hosting
-- Used AI tools to plan and troubleshoot the deployment
-- Rewrote this README and recorded a new demo video
